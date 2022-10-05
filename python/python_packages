@@ -1,0 +1,19 @@
+#create packages for files
+import os
+import shutil
+
+folder_path = 'The folder containing files'
+file_types = []
+for file in (os.listdir(folder_path)):
+    file_type_part_name_by_ = file.split('_')
+    file_type = file_type_part_name_by_[1]
+    if file_type not in file_types:
+        file_types.append(file_type)
+        os.mkdir(file_type)
+        shutil.move(file, file_type)
+    else:
+        shutil.move(file, file_type)
+# for metadata and objects subfolder
+subfolder_names = [metadata, objects]
+for subfolder_name in subfolder_names:
+    os.makedirs(os.path.join('folder', subfolder_name))
