@@ -148,7 +148,7 @@ def test_extract_collection_name_from_report(parsed_report):
     """Test if collection name is taken from XML"""
     coll_name = rfe.extract_collection_title(parsed_report)
 
-    assert coll_name == 'Extents Test'
+    assert coll_name == 'Extents Test papers'
 
 @pytest.fixture
 def ers_with_extents_list(parsed_report):
