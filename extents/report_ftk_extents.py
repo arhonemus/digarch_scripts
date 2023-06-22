@@ -168,6 +168,11 @@ def add_extents_to_ers(
             LOGGER.warning(
                 f'{er_name} does not contain any files. It will be omitted from the report.')
             continue
+        if size == 0:
+            er_name = er[0].split('/')[-1]
+            LOGGER.warning(
+                f'{er_name} contains no files with bytes. This ER is omitted from report. Review this ER with the processing archivist.')
+            continue
 
         ers_with_extents.append([er[0], size, count])
 
@@ -197,9 +202,15 @@ def get_er_report(
             nonzero_bytes = re.findall(r'(\d+)\sB', byte_string)
 
             if nonzero_bytes:
-                file_size = int(nonzero_bytes[0])
-                size += file_size
                 count += 1
+                file_size = int(nonzero_bytes[0])
+                if file_size == 0:
+                    file_name = entry[0]
+                    #extract file name, might have to parse file table better
+                    LOGGER.warning(
+                        f'an er contains the following 0-byte file:{2}. Review these files with the processing archivist.')
+                size += file_size
+               
             else:
                 pass
 
